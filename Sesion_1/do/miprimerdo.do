@@ -14,7 +14,7 @@ global PATH "C:\Users\User\Documents\MUCD_stata_intro\Sesion_1"
 cd $PATH
 
 capture log close
-log using "$PATH\logs\log_sesion1.smcl", text replace
+log using "$PATH\logs\log_sesion1.smcl", text replace name(Mi_primer_log)
 
 version 16
 clear all
@@ -25,16 +25,28 @@ set more off
 * 1. Importar datos en formato .dta
 
 use http://www.principlesofeconometrics.com/stata/olympics.dta, clear
+
+summarize
+
 use "$PATH\data\olympics.dta", clear
+
+summarize
 
 * 2. Importar datos en formato .csv
 
 import delimited "$PATH\data\song_billboard_spotify.csv", encoding(UTF-8) clear
 
+summarize
+
 * 3. Importar datos en Excel
 
 import excel "$PATH\data\baseDatosCandidatos.xls", sheet("CANDIDATOS") clear
 
+import excel "C:\Users\User\Documents\MUCD_stata_intro\Sesion_1\data\baseDatosCandidatos.xls", sheet("CANDIDATOS") firstrow clear
 
-save "$PATH\productos\datos_limpios.dta"
+
+summarize
+
+
+save "$PATH\productos\datos_limpios.dta", replace
 log close
