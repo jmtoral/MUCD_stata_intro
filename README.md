@@ -1,0 +1,1 @@
+Este repositorio es para la clase introductioria a *STATA* para **MUCD**, llevada a cabo el 14 de julio de 2022 de manera virtual.
