@@ -13,6 +13,8 @@ global PATH "C:\Users\User\Documents\MUCD_stata_intro\Sesion_1"
 
 cd $PATH
 
+pwd
+
 capture log close
 log using "$PATH\logs\log_sesion1.smcl", text replace name(Mi_primer_log)
 
@@ -31,12 +33,18 @@ summarize
 use "$PATH\data\olympics.dta", clear
 
 summarize
+list, header(10)
+codebook
+lookfor pl
 
 * 2. Importar datos en formato .csv
 
 import delimited "$PATH\data\song_billboard_spotify.csv", encoding(UTF-8) clear
 
 summarize
+tab artist
+tab artist, sort
+
 
 * 3. Importar datos en Excel
 

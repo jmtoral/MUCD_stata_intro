@@ -162,3 +162,10 @@ end of do-file
 
 r(606);
 
+. import excel "C:\Users\User\Documents\MUCD_stata_intro\Sesion_1\data\baseDatos
+> Candidatos.xls", sheet("CANDIDATOS") firstrow clear
+(25 vars, 479 obs)
+
+. pwd
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_1
+
