@@ -1,0 +1,81 @@
+--------------------------------------------------------------------------------
+      name:  Intro_Datos
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_2\logs\log_sesion2.
+> smcl
+  log type:  text
+ opened on:  15 Jul 2022, 11:58:39
+
+. 
+. // Document starts here
+. 
+. putdocx begin
+
+. 
+. /* Título */
+. 
+. putdocx paragraph, style(Title)
+
+. putdocx text ("Mi primer análisis de datos en STATA")
+
+. 
+. /* Add a heading */
+. putdocx paragraph, style(Heading1)
+
+. putdocx text ("Datos")
+
+. putdocx textblock begin
+
+. 
+. use "C:\Users\User\Documents\MUCD_stata_intro\Sesion_2\data\ENPOL2021_SOC.dta"
+
+. 
+. /* Add a block of text */
+. putdocx textblock begin
+
+. 
+. 
+. // Embed Stata dataset
+. putdocx paragraph
+
+. putdocx text ("Tabla de medidas de tendencia central.")
+
+. statsby Total=r(N) Average=r(mean) Max=r(max) Min=r(min), by(FUERO): summarize
+>  SEXO
+(running summarize on estimation sample)
+
+      command:  summarize SEXO
+        Total:  r(N)
+      Average:  r(mean)
+          Max:  r(max)
+          Min:  r(min)
+           by:  FUERO
+
+Statsby groups
+----+--- 1 ---+--- 2 ---+--- 3 ---+--- 4 ---+--- 5 
+..
+
+. 
+. putdocx table tbl1 = data("FUERO Total Average Max Min"), varnames
+
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. 
+. /* Save and close the document */
+. putdocx save bwreport, replace
+
+. 
+. 
+. // Cerrar el log
+. log close Intro_Datos
+      name:  Intro_Datos
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_2\logs\log_sesion2.
+> smcl
+  log type:  text
+ closed on:  15 Jul 2022, 11:58:39
+--------------------------------------------------------------------------------

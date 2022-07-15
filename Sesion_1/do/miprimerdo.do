@@ -33,7 +33,7 @@ summarize
 use "$PATH\data\olympics.dta", clear
 
 summarize
-list, header(10)
+list in 1/10
 codebook
 lookfor pl
 
@@ -56,5 +56,5 @@ import excel "C:\Users\User\Documents\MUCD_stata_intro\Sesion_1\data\baseDatosCa
 summarize
 
 
-save "$PATH\productos\datos_limpios.dta", replace
+*save "$PATH\productos\datos_limpios.dta", replace
 log close
