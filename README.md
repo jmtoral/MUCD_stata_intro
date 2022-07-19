@@ -1,4 +1,4 @@
-Este repositorio es para la clase introductioria a *STATA* para **MUCD**, llevada a cabo el 14 de julio de 2022 de manera virtual.
+Este repositorio es para la clase introductioria a *STATA* para **MUCD**, llevada a cabo a partir del 14 de julio de 2022 de manera virtual.
 
 En este repositorio, además de encontrar el material, los datos y los do-files para su consulta, también van a poder encontrar material de ayuda que vaya recoelctando.
 
@@ -14,3 +14,7 @@ En este repositorio, además de encontrar el material, los datos y los do-files 
 - Stata Coding Guide: https://julianreif.com/guide/ (*en inglés*)
 - El episodio 7 de *The hidden Curriculum*: https://www.youtube.com/watch?v=BRakB2fxWYc (*en inglés*)
 - El canal del *Economista Camuflado* https://www.youtube.com/c/ElEconomistaCamuflado 
+- El curso de *Aula* sobre fundamentos de STATA https://www.youtube.com/watch?v=uSp_kyHnXQY&list=PL2CAKKrMn4tnHN2nfP0OC7Gz3xkA81NIV (Vale la pena consultar los más avanzados)
+- Los videos *STATeando* https://www.youtube.com/channel/UC-jqicSCWen_FCATDcFVORQ/videos
+
+
