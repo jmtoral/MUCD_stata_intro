@@ -1,0 +1,558 @@
+-------------------------------------------------------------------------------
+      name:  sesion3
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_3\logs\log_sesion3
+> .smcl
+  log type:  text
+ opened on:  21 Jul 2022, 15:39:46
+
+. 
+. // 1. Importar los datos
+. 
+. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_3\data\IDEF
+> C_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. // 2. Explorar
+. 
+. describe
+
+Contains data
+  obs:        25,088                          
+ vars:            19                          
+-------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+-------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. codebook
+
+-------------------------------------------------------------------------------
+año                                                                         Año
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [2015,2022]                  units:  1
+         unique values:  8                        missing .:  0/25,088
+
+            tabulation:  Freq.  Value
+                         3,136  2015
+                         3,136  2016
+                         3,136  2017
+                         3,136  2018
+                         3,136  2019
+                         3,136  2020
+                         3,136  2021
+                         3,136  2022
+
+-------------------------------------------------------------------------------
+clave_ent                                                             Clave_Ent
+-------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+
+                 range:  [1,32]                       units:  1
+         unique values:  32                       missing .:  0/25,088
+
+                  mean:      16.5
+              std. dev:   9.23328
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 4       8.5      16.5      24.5        29
+
+-------------------------------------------------------------------------------
+entidad                                                                 Entidad
+-------------------------------------------------------------------------------
+
+                  type:  string (str31)
+
+         unique values:  32                       missing "":  0/25,088
+
+              examples:  "Ciudad de México"
+                         "Hidalgo"
+                         "Oaxaca"
+                         "Sonora"
+
+               warning:  variable has embedded blanks
+
+-------------------------------------------------------------------------------
+bienjurídicoafectado                                     Bien jurídico afectado
+-------------------------------------------------------------------------------
+
+                  type:  string (str52)
+
+         unique values:  7                        missing "":  0/25,088
+
+            tabulation:  Freq.  Value
+                        10,752  "El patrimonio"
+                         1,024  "La familia"
+                         1,792  "La libertad y la seguridad sexual"
+                           768  "La sociedad"
+                         6,144  "La vida y la Integridad corporal"
+                         2,048  "Libertad personal"
+                         2,560  "Otros bienes jurídicos afectados (del
+                                fuero común)"
+
+               warning:  variable has embedded blanks
+
+-------------------------------------------------------------------------------
+tipodedelito                                                     Tipo de delito
+-------------------------------------------------------------------------------
+
+                  type:  string (str78)
+
+         unique values:  40                       missing "":  0/25,088
+
+              examples:  "Feminicidio"
+                         "Lesiones"
+                         "Robo"
+                         "Robo"
+
+               warning:  variable has embedded blanks
+
+-------------------------------------------------------------------------------
+subtipodedelito                                               Subtipo de delito
+-------------------------------------------------------------------------------
+
+                  type:  string (str78)
+
+         unique values:  55                       missing "":  0/25,088
+
+              examples:  "Feminicidio"
+                         "Lesiones dolosas"
+                         "Robo a negocio"
+                         "Robo de vehículo automotor"
+
+               warning:  variable has embedded blanks
+
+-------------------------------------------------------------------------------
+modalidad                                                             Modalidad
+-------------------------------------------------------------------------------
+
+                  type:  string (str84)
+
+         unique values:  59                       missing "":  0/25,088
+
+              examples:  "Con otro elemento"
+                         "En accidente de tránsito"
+                         "Otros delitos contra la sociedad"
+                         "Secuestro extorsivo"
+
+               warning:  variable has embedded blanks
+
+-------------------------------------------------------------------------------
+enero                                                                     Enero
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7565]                     units:  1
+         unique values:  842                      missing .:  0/25,088
+
+                  mean:   47.9063
+              std. dev:   185.226
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        23       111
+
+-------------------------------------------------------------------------------
+febrero                                                                 Febrero
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7888]                     units:  1
+         unique values:  836                      missing .:  0/25,088
+
+                  mean:   48.1146
+              std. dev:   189.561
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        24       111
+
+-------------------------------------------------------------------------------
+marzo                                                                     Marzo
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,8419]                     units:  1
+         unique values:  886                      missing .:  0/25,088
+
+                  mean:   53.6134
+              std. dev:   212.078
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         2        27       123
+
+-------------------------------------------------------------------------------
+abril                                                                     Abril
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7916]                     units:  1
+         unique values:  867                      missing .:  0/25,088
+
+                  mean:    50.059
+              std. dev:   199.399
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        24       114
+
+-------------------------------------------------------------------------------
+mayo                                                                       Mayo
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7899]                     units:  1
+         unique values:  885                      missing .:  0/25,088
+
+                  mean:    52.783
+              std. dev:   210.952
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         2        25       119
+
+-------------------------------------------------------------------------------
+junio                                                                     Junio
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7386]                     units:  1
+         unique values:  889                      missing .:  0/25,088
+
+                  mean:   52.3535
+              std. dev:   202.215
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         2        26       118
+
+-------------------------------------------------------------------------------
+julio                                                                     Julio
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7619]                     units:  1
+         unique values:  823                      missing .:  3,136/25,088
+
+                  mean:    50.965
+              std. dev:   196.347
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        25       114
+
+-------------------------------------------------------------------------------
+agosto                                                                   Agosto
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7955]                     units:  1
+         unique values:  832                      missing .:  3,136/25,088
+
+                  mean:   52.1643
+              std. dev:   202.214
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        25       116
+
+-------------------------------------------------------------------------------
+septiembre                                                           Septiembre
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7805]                     units:  1
+         unique values:  832                      missing .:  3,136/25,088
+
+                  mean:   51.0638
+              std. dev:   196.953
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        25       115
+
+-------------------------------------------------------------------------------
+octubre                                                                 Octubre
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,8421]                     units:  1
+         unique values:  851                      missing .:  3,136/25,088
+
+                  mean:   53.7457
+              std. dev:   209.066
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        26       123
+
+-------------------------------------------------------------------------------
+noviembre                                                             Noviembre
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7750]                     units:  1
+         unique values:  815                      missing .:  3,136/25,088
+
+                  mean:   50.0936
+              std. dev:   193.094
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        25       116
+
+-------------------------------------------------------------------------------
+diciembre                                                             Diciembre
+-------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [0,7852]                     units:  1
+         unique values:  812                      missing .:  3,136/25,088
+
+                  mean:   48.5461
+              std. dev:   191.054
+
+           percentiles:        10%       25%       50%       75%       90%
+                                 0         0         1        23       110
+
+. list in 1/10
+
+     +---------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio |  Homicidio doloso  |        Con arma de fuego  |     3  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     2 |     1 |    1 |     1 |     2 |      1 |        2  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             2       |              2        |              1        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  2. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio |  Homicidio doloso  |          Con arma blanca  |     1  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       1 |     0 |     0 |    0 |     1 |     0 |      1 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              1        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  3. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio |  Homicidio doloso  |        Con otro elemento  |     0  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     2 |     2 |    3 |     2 |     0 |      1 |        2  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              0        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  4. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio |  Homicidio doloso  |          No especificado  |     2  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     0 |     1 |    0 |     0 |     0 |      0 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              0        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  5. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio | Homicidio culposo  |        Con arma de fuego  |     0  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     0 |     0 |    1 |     0 |     0 |      0 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              0        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  6. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio | Homicidio culposo  |          Con arma blanca  |     0  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     0 |     0 |    0 |     0 |     0 |      0 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              0        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  7. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio | Homicidio culposo  | En accidente de tránsito  |    14  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |      17 |    10 |    14 |   13 |    11 |    14 |     11 |       23  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |            14       |              7        |             15        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  8. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio | Homicidio culposo  |        Con otro elemento  |     0  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       0 |     0 |     0 |    0 |     1 |     0 |      0 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              1        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+  9. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     | Homicidio | Homicidio culposo  |          No especificado  |     2  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       2 |     0 |     3 |    0 |     0 |     0 |      0 |        0  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             0       |              0        |              0        |
+     +---------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------+
+ 10. |  año | clave_~t |        entidad |             bienjurídicoafectado |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
+     |---------------------------------------------------------------------|
+     | tipoded~o |   subtipodedelito  |                modalidad  | enero  |
+     |  Lesiones |  Lesiones dolosas  |        Con arma de fuego  |     2  |
+     |--------------------------------+------------------------------------|
+     | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e  |
+     |       3 |     4 |     1 |    2 |     3 |     5 |      2 |        1  |
+     |---------------------------------------------------------------------|
+     |       octubre       |       noviem~e        |       diciem~e        |
+     |             4       |              3        |              2        |
+     +---------------------------------------------------------------------+
+
+. 
+. 
+. //3. Cambiar nombres problemáticos
+. rename año yr
+
+. rename bienjurídicoafectado bienjur
+
+. 
+. // 4. Definir etiquetas de los datos
+. 
+. label data "Cifras de Incidencia Delictiva Estatal, 2015 - junio 2022"
+
+. 
+. // 5. Definir etiquetas de las variables
+. 
+. label variable clave_ent "Clave de Entidad"
+
+. 
+. // N. Generar una variable por año
+. 
+. gen total = enero + febrero + marzo + abril + mayo + junio + julio + agosto +
+>  septiembre + octubre + noviembre + diciembre
+(3,136 missing values generated)
+
+. 
+. 
+. 
+. 
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          yr |     25,088      2018.5    2.291334       2015       2022
+   clave_ent |     25,088        16.5    9.233277          1         32
+     entidad |          0
+     bienjur |          0
+tipodedelito |          0
+-------------+---------------------------------------------------------
+subtipoded~o |          0
+   modalidad |          0
+       enero |     25,088    47.90625    185.2256          0       7565
+     febrero |     25,088    48.11464    189.5609          0       7888
+       marzo |     25,088    53.61344    212.0784          0       8419
+-------------+---------------------------------------------------------
+       abril |     25,088    50.05903    199.3985          0       7916
+        mayo |     25,088      52.783    210.9523          0       7899
+       junio |     25,088    52.35352    202.2152          0       7386
+       julio |     21,952    50.96497    196.3468          0       7619
+      agosto |     21,952    52.16427    202.2137          0       7955
+-------------+---------------------------------------------------------
+  septiembre |     21,952    51.06382    196.9535          0       7805
+     octubre |     21,952    53.74572    209.0663          0       8421
+   noviembre |     21,952    50.09361    193.0939          0       7750
+   diciembre |     21,952    48.54606    191.0542          0       7852
+       total |     21,952    606.2278    2324.082          0      90574
+
+. 
+. 
+. save "$PATH\productos\yr_2021.dta", replace
+(note: file C:\Users\User\Documents\MUCD_stata_intro\Sesion_3\productos\yr_2021
+> .dta not found)
+file C:\Users\User\Documents\MUCD_stata_intro\Sesion_3\productos\yr_2021.dta sa
+> ved
+
+. log close sesion3
+      name:  sesion3
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_3\logs\log_sesion3
+> .smcl
+  log type:  text
+ closed on:  21 Jul 2022, 15:39:47
+-------------------------------------------------------------------------------
