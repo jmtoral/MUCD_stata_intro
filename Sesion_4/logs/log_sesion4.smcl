@@ -1,0 +1,142 @@
+-------------------------------------------------------------------------------
+      name:  sesion4
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4
+> .smcl
+  log type:  text
+ opened on:  22 Jul 2022, 12:51:04
+
+. 
+. // 1. Importar los datos de población
+. 
+. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\pob2
+> 020.csv", varnames(1) clear
+(2 vars, 32 obs)
+
+. 
+. // 2. Guardarlos como dta
+. 
+. save "data\pob2020.dta", replace
+file data\pob2020.dta saved
+
+. 
+. // 3. Combinar
+. 
+. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\IDEF
+> C_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. merge m:1 entidad using "data\pob2020.dta"
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             0
+    matched                            25,088  (_merge==3)
+    -----------------------------------------
+
+. 
+. // 4. Crear una nueva variable con el total
+. 
+. gen total = enero + febrero + marzo + abril + mayo + junio + julio + agosto +
+>  septiembre + octubre + noviembre + diciembre
+(3,136 missing values generated)
+
+. 
+. //egen total = rowtotal(enero-diciembre) 
+. 
+. // 5. Crear una variable con la razón de delitos totales y población
+. 
+. //destring pob2020, replace
+. 
+. gen tasa = total/pob20
+(3,136 missing values generated)
+
+. 
+. replace tasa = tasa * 100000
+(16,106 real changes made)
+
+. 
+. tabulate entidad, missing
+
+                        Entidad |      Freq.     Percent        Cum.
+--------------------------------+-----------------------------------
+                 Aguascalientes |        784        3.13        3.13
+                Baja California |        784        3.13        6.25
+            Baja California Sur |        784        3.13        9.38
+                       Campeche |        784        3.13       12.50
+                        Chiapas |        784        3.13       15.63
+                      Chihuahua |        784        3.13       18.75
+               Ciudad de México |        784        3.13       21.88
+           Coahuila de Zaragoza |        784        3.13       25.00
+                         Colima |        784        3.13       28.13
+                        Durango |        784        3.13       31.25
+                     Guanajuato |        784        3.13       34.38
+                       Guerrero |        784        3.13       37.50
+                        Hidalgo |        784        3.13       40.63
+                        Jalisco |        784        3.13       43.75
+            Michoacán de Ocampo |        784        3.13       46.88
+                        Morelos |        784        3.13       50.00
+                         México |        784        3.13       53.13
+                        Nayarit |        784        3.13       56.25
+                     Nuevo León |        784        3.13       59.38
+                         Oaxaca |        784        3.13       62.50
+                         Puebla |        784        3.13       65.63
+                      Querétaro |        784        3.13       68.75
+                   Quintana Roo |        784        3.13       71.88
+                San Luis Potosí |        784        3.13       75.00
+                        Sinaloa |        784        3.13       78.13
+                         Sonora |        784        3.13       81.25
+                        Tabasco |        784        3.13       84.38
+                     Tamaulipas |        784        3.13       87.50
+                       Tlaxcala |        784        3.13       90.63
+Veracruz de Ignacio de la Llave |        784        3.13       93.75
+                        Yucatán |        784        3.13       96.88
+                      Zacatecas |        784        3.13      100.00
+--------------------------------+-----------------------------------
+                          Total |     25,088      100.00
+
+. 
+. drop if tasa == .
+(3,136 observations deleted)
+
+. 
+. 
+. // 6. Los estados más violentos (por homicidios con arma de fuego) en 2021
+. 
+. keep if año == 2021 & subtipodedelito == "Homicidio doloso" & modalidad == "C
+> on arma de fuego"
+(21,920 observations deleted)
+
+. 
+. 
+. xtile cuantil5 = tasa, nq(5)
+
+. 
+. list cuantil5 in 1/5
+
+     +----------+
+     | cuantil5 |
+     |----------|
+  1. |        1 |
+  2. |        5 |
+  3. |        1 |
+  4. |        2 |
+  5. |        2 |
+     +----------+
+
+. 
+. 
+. // 7. Guardar resultados
+. 
+. save "productos\homicidios_cuantiles.dta", replace
+(note: file productos\homicidios_cuantiles.dta not found)
+file productos\homicidios_cuantiles.dta saved
+
+. 
+. log close sesion4
+      name:  sesion4
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4
+> .smcl
+  log type:  text
+ closed on:  22 Jul 2022, 12:51:04
+-------------------------------------------------------------------------------

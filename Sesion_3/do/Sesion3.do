@@ -11,6 +11,8 @@
 
 global PATH "C:\Users\User\Documents\MUCD_stata_intro\Sesion_3"
 
+cd $PATH
+
 capture log close sesion3
 log using "$PATH\logs\log_sesion3.smcl", text replace name(sesion3)
 
@@ -38,7 +40,7 @@ label data "Cifras de Incidencia Delictiva Estatal, 2015 - junio 2022"
 label variable clave_ent "Clave de Entidad"
 
 // 6. Conservar o tirar
-preserve // Marco un "chekpoint"
+preserve // Marco un "checkpoint"
 
 drop if yr < 2021
 
@@ -68,9 +70,19 @@ list if entidad == "Aguascalientes"
 list if entidad == "Aguascalientes" & tipodedelito == "Electorales" & yr = "2022"
 
 
+list if entidad == "Aguascalientes" & modalidad == "Electorales" & yr == 2021 | entidad == "Durango" & modalidad == "Electorales" & yr == 2021
+
+
+tab subtipodedelito if modalidad == "Con arma de fuego"
+
+// hervir agua if infusion == "Jamaica", g30
+
 // 8. Generar una variable por año
 
 gen total = enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + noviembre + diciembre
+
+
+list entidad total if subtipodedelito == "Homicidio doloso" & total >= 1500 & yr == 2020
 
 
 
