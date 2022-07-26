@@ -2,7 +2,7 @@ Este repositorio es para la clase introductioria a *STATA* para **MUCD**, llevad
 
 En este repositorio, además de encontrar el material, los datos y los do-files para su consulta, también van a poder encontrar material de ayuda que vaya recoelctando.
 
-
+- Statistics Help! https://www.stathelp.se/index_en.html (*en inglés*)
 - Los videos de la SATATA Corp con tutoriales de ayuda: https://www.youtube.com/user/statacorp (*en inglés*)
 - El tutorial de STATA de Germán Rodríguez: https://data.princeton.edu/stata (*en inglés*)
 - Aprende STATA en 15 minutos https://www.youtube.com/watch?v=rdFw-fBfygQ (*en inglés*)
