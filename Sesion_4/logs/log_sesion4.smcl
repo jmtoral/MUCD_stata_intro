@@ -1,15 +1,14 @@
--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
       name:  sesion4
-       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4
-> .smcl
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4.smcl
   log type:  text
- opened on:  22 Jul 2022, 12:51:04
+ opened on:  28 Jul 2022, 17:48:40
 
 . 
 . // 1. Importar los datos de población
 . 
-. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\pob2
-> 020.csv", varnames(1) clear
+. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\pob2020.csv", varnames(1) cl
+> ear
 (2 vars, 32 obs)
 
 . 
@@ -21,8 +20,7 @@ file data\pob2020.dta saved
 . 
 . // 3. Combinar
 . 
-. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\IDEF
-> C_NM_jun22.csv", clear
+. import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\IDEFC_NM_jun22.csv", clear
 (19 vars, 25,088 obs)
 
 . 
@@ -37,8 +35,8 @@ file data\pob2020.dta saved
 . 
 . // 4. Crear una nueva variable con el total
 . 
-. gen total = enero + febrero + marzo + abril + mayo + junio + julio + agosto +
->  septiembre + octubre + noviembre + diciembre
+. gen total = enero + febrero + marzo + abril + mayo + junio + julio + agosto + septiembre + octubre + 
+> noviembre + diciembre
 (3,136 missing values generated)
 
 . 
@@ -100,43 +98,610 @@ Veracruz de Ignacio de la Llave |        784        3.13       93.75
 (3,136 observations deleted)
 
 . 
-. 
-. // 6. Los estados más violentos (por homicidios con arma de fuego) en 2021
-. 
-. keep if año == 2021 & subtipodedelito == "Homicidio doloso" & modalidad == "C
-> on arma de fuego"
-(21,920 observations deleted)
+end of do-file
+
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+(21,728 observations deleted)
 
 . 
 . 
-. xtile cuantil5 = tasa, nq(5)
+. graph bar (sum) total
 
-. 
-. list cuantil5 in 1/5
+. graph bar (sum) total, by(año)
 
-     +----------+
-     | cuantil5 |
-     |----------|
-  1. |        1 |
-  2. |        5 |
-  3. |        1 |
-  4. |        2 |
-  5. |        2 |
-     +----------+
+. graph bar (sum) total, over(año)
 
-. 
-. 
-. // 7. Guardar resultados
-. 
-. save "productos\homicidios_cuantiles.dta", replace
-(note: file productos\homicidios_cuantiles.dta not found)
-file productos\homicidios_cuantiles.dta saved
+. graph bar (sum) total, over(año) by(entidad)
 
-. 
-. log close sesion4
-      name:  sesion4
-       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4
-> .smcl
+. graph bar (sum) total, over(año)
+
+. cap log close stata_kernel_log
+log using `"C:\Users\User\.stata_kernel_cache\log0.log"', replace text name(stata_kernel_log)
+-------------------------------------------------------------------------------------------------------
+      name:  stata_kernel_log
+       log:  C:\Users\User\.stata_kernel_cache\log0.log
   log type:  text
- closed on:  22 Jul 2022, 12:51:04
+ opened on:  29 Jul 2022, 10:03:54
+adopath + `"C:\Users\User\anaconda3\Lib\site-packages\stata_kernel\ado"'
+  [1]  (BASE)      "D:\Desktop\STATA 16 - ULTIMO-20201103T041654Z-001\STATA 16 - ULTIMO\Stata16\ado\bas
+> e/"
+  [2]  (SITE)      "D:\Desktop\STATA 16 - ULTIMO-20201103T041654Z-001\STATA 16 - ULTIMO\Stata16\ado\sit
+> e/"
+  [3]              "."
+  [4]  (PERSONAL)  "C:\Users\User\ado\personal/"
+  [5]  (PLUS)      "C:\Users\User\ado\plus/"
+  [6]  (OLDPLACE)  "c:\ado/"
+  [7]              "C:\Users\User\anaconda3\Lib\site-packages\stata_kernel\ado"
+
+. cd `"C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks"'
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks
+
+. set more on
+
+. set pagesize 100
+
+. set linesize 80
+
+. clear all
+
+. global stata_kernel_graph_counter = 0
+
+. 
+. di "$S_DATE, $S_TIME"
+29 Jul 2022, 10:03:55
+
+. di "Stata version: `c(version)'"
+Stata version: 16
+
+. di "OS: $S_OS"
+OS: Windows
+
+. `finished_init_cmd'
+. di "`c(stata_version)'"
+16
+
+. `done'
+. _StataKernelCompletions
+%mata%
+
+      # bytes   type                        name and extent
 -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+%varlist%
+
+%globals%
+stata_kernel_graph_counter S_ADO T_gm_fix_span PATH S_2 S_1 ReS_Call S_level F1 
+> F2 F7 F8 S_StataMP S_StataSE S_FLAVOR S_OS S_OSDTL S_MACH
+%logfiles%
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\logs\log_sesion4.smcl
+%scalars%
+
+%programs%
+  ado      792  _StataKernelCompletions
+  ado      242  clear.clearreturn
+  ado      603  clear._clear_9
+  ado     1770  clear
+      --------
+          3407
+
+%matrices%
+
+
+. `bcc4869c9c119320f7af8a3981776720'
+. mata : invtokens(st_dir("local", "macro", "*")')
+  
+
+. `08a286cef0dc100f5df674f2b5353f29'
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. cap di "Set _rc to 0 initially"
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. cd "C:\Users\User\Documents\MUCD_stata_intro\Sesion_5"
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_5
+
+. log using "logs_notebooks\log_sesion5.smcl", text replace name(sesion5)
+--------------------------------------------------------------------------------
+      name:  sesion5
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks\lo
+> g_sesion5.smcl
+  log type:  text
+ opened on:  29 Jul 2022, 10:04:43
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\IDEFC
+> _NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fueg
+> o"
+(24,832 observations deleted)
+
+. d
+
+Contains data
+  obs:           256                          
+ vars:            19                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+--------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. tab modalidad
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                      Con arma de fuego |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                       Homicidio doloso |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. collapse (sum) enero-diciembre, by(año)
+
+. d
+
+Contains data
+  obs:             8                          
+ vars:            13                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+enero           double  %8.0g                 (sum) enero
+febrero         double  %8.0g                 (sum) febrero
+marzo           double  %8.0g                 (sum) marzo
+abril           double  %8.0g                 (sum) abril
+mayo            double  %8.0g                 (sum) mayo
+junio           double  %8.0g                 (sum) junio
+julio           double  %8.0g                 (sum) julio
+agosto          double  %8.0g                 (sum) agosto
+septiembre      double  %8.0g                 (sum) septiembre
+octubre         double  %8.0g                 (sum) octubre
+noviembre       double  %8.0g                 (sum) noviembre
+diciembre       double  %8.0g                 (sum) diciembre
+--------------------------------------------------------------------------------
+Sorted by: año
+     Note: Dataset has changed since last saved.
+
+. list
+
+     +------------------------------------------------------------------------+
+  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |         776     |        794     |          859     |          793     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1198     |       1139     |         1188     |         1145     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1468     |       1647     |         1504     |         1543     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1770     |       1727     |         1697     |         1816     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1621     |       1685     |         1739     |         1670     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1592     |       1633     |         1558     |         1556     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |        1588     |       1671     |         1441     |         1594     |
+     +------------------------------------------------------------------------+
+
+     +------------------------------------------------------------------------+
+  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
+     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |
+     |------------------------------------------------------------------------|
+     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
+     |           0     |          0     |            0     |            0     |
+     +------------------------------------------------------------------------+
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. gen id = _n
+
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        8   ->      96
+Number of variables                  14   ->       4
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. reshape wide homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                       96   ->       8
+Number of variables                   4   ->      14
+j variable (12 values)              mes   ->   (dropped)
+xij variables:
+                             homicidios   ->   homicidios1 homicidios2 ... homic
+> idios12
+-----------------------------------------------------------------------------
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+variable enero not found
+r(111);
+r(111);
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . import delimited "C:\Users\User\Documents\MUCD_stata_intro\Sesion_4\data\IDEFC
+> _NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fueg
+> o"
+(24,832 observations deleted)
+
+. d
+
+Contains data
+  obs:           256                          
+ vars:            19                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+--------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. tab modalidad
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                      Con arma de fuego |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                       Homicidio doloso |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. gen id = _n
+
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                      256   ->    3072
+Number of variables                  20   ->      10
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. d
+
+Contains data
+  obs:         3,072                          
+ vars:            10                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+id              float   %9.0g                 
+mes             byte    %9.0g                 
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+homicidios      int     %8.0g                 
+--------------------------------------------------------------------------------
+Sorted by: id  mes
+     Note: Dataset has changed since last saved.
+
+. reshape wide homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                     3072   ->     256
+Number of variables                  10   ->      20
+j variable (12 values)              mes   ->   (dropped)
+xij variables:
+                             homicidios   ->   homicidios1 homicidios2 ... homic
+> idios12
+-----------------------------------------------------------------------------
+
+. d
+
+Contains data
+  obs:           256                          
+ vars:            20                          
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+id              float   %9.0g                 
+homicidios1     int     %8.0g                 1 homicidios
+homicidios2     int     %8.0g                 2 homicidios
+homicidios3     int     %8.0g                 3 homicidios
+homicidios4     int     %8.0g                 4 homicidios
+homicidios5     int     %8.0g                 5 homicidios
+homicidios6     int     %8.0g                 6 homicidios
+homicidios7     int     %8.0g                 7 homicidios
+homicidios8     int     %8.0g                 8 homicidios
+homicidios9     int     %8.0g                 9 homicidios
+homicidios10    int     %8.0g                 10 homicidios
+homicidios11    int     %8.0g                 11 homicidios
+homicidios12    int     %8.0g                 12 homicidios
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+--------------------------------------------------------------------------------
+Sorted by: id
+     Note: Dataset has changed since last saved.
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . log close sesion5
+      name:  sesion5
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks\lo
+> g_sesion5.smcl
+  log type:  text
+ closed on:  29 Jul 2022, 10:06:33
+--------------------------------------------------------------------------------
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. 
