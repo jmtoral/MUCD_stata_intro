@@ -1,0 +1,51 @@
+--------------------------------------------------------------------------------
+      name:  sesion6
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_6\logs_notebooks\lo
+> g_sesion6.smcl
+  log type:  text
+ opened on:   1 Aug 2022, 14:46:00
+
+. . `91905ece56a3e3696a830fe492c0ece9'
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. . `cc64df03024327541235dabb93f09e00'
+. _StataKernelLog off
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. . include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. cd "C:\Users\User\Documents\MUCD_stata_intro\Sesion_6"
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_6
+
+. log using "logs_notebooks\log_sesion6.smcl", text replace name(sesion6)
+log file already open
+r(604);
+r(604);
+
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+. include "C:/Users/User/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. 

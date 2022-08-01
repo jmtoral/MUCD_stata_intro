@@ -1,92 +1,47 @@
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
       name:  sesion5
-       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks\lo
-> g_sesion5.smcl
+       log:  C:\Users\User\Documents\MUCD_stata_intro\Sesion_5\logs_notebooks\log_sesion5.smcl
   log type:  text
- opened on:  29 Jul 2022, 10:21:22
+ opened on:  29 Jul 2022, 12:40:49
 
-. . `f89d6ab0f47a5a285a4fd7f3986a955f'
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. . `cc64df03024327541235dabb93f09e00'
-. _StataKernelLog off
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . import delimited "data\IDEFC_NM_jun22.csv", clear
+. 
+. // 1. Datos
+. import delimited "data\IDEFC_NM_jun22.csv", clear
 (19 vars, 25,088 obs)
 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
+. 
+. list in 1
 
-. tempname __user_rc
-
-. local `__user_rc' = _rc
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
 
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . list in 1
-
-     +---------------------------------------------------------------------+
-  1. |  año | clave_~t |        entidad |             bienjurídicoafectado |
-     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal |
-     |---------------------------------------------------------------------|
-     | tipoded~o |  subtipodedelito |         modalidad | enero | febrero  |
-     | Homicidio | Homicidio doloso | Con arma de fuego |     3 |       0  |
-     |------------------------------+---------------------------+----------|
-     | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre  |
-     |     2 |     1 |    1 |     1 |     2 |      1 |        2 |       2  |
-     |---------------------------------------------------------------------|
-     |             noviem~e             |             diciem~e             |
-     |                    2             |                    1             |
-     +---------------------------------------------------------------------+
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
+. // 2. Transformaciones y limpieza
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fueg
-> o"
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
 (24,832 observations deleted)
 
+. 
 . d
 
 Contains data
   obs:           256                          
  vars:            19                          
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
               storage   display    value
 variable name   type    format     label      variable label
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 año             int     %8.0g                 Año
 clave_ent       byte    %8.0g                 Clave_Ent
 entidad         str31   %31s                  Entidad
@@ -106,7 +61,7 @@ septiembre      int     %8.0g                 Septiembre
 octubre         int     %8.0g                 Octubre
 noviembre       int     %8.0g                 Noviembre
 diciembre       int     %8.0g                 Diciembre
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 Sorted by: 
      Note: Dataset has changed since last saved.
 
@@ -126,23 +81,8 @@ Sorted by:
 ----------------------------------------+-----------------------------------
                                   Total |        256      100.00
 
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
+. 
 . collapse (sum) enero-diciembre, by(año)
 
 . d
@@ -150,10 +90,10 @@ Sorted by:
 Contains data
   obs:             8                          
  vars:            13                          
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
               storage   display    value
 variable name   type    format     label      variable label
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 año             int     %8.0g                 Año
 enero           double  %8.0g                 (sum) enero
 febrero         double  %8.0g                 (sum) febrero
@@ -167,97 +107,85 @@ septiembre      double  %8.0g                 (sum) septiembre
 octubre         double  %8.0g                 (sum) octubre
 noviembre       double  %8.0g                 (sum) noviembre
 diciembre       double  %8.0g                 (sum) diciembre
---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
 Sorted by: año
      Note: Dataset has changed since last saved.
 
 . list
 
-     +------------------------------------------------------------------------+
-  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |         776     |        794     |          859     |          793     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |      776 |     794 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                        859                   |                        793                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1198     |       1139     |         1188     |         1145     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |     1198 |    1139 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1188                   |                       1145                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1468     |       1647     |         1504     |         1543     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |     1468 |    1647 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1504                   |                       1543                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1770     |       1727     |         1697     |         1816     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |     1770 |    1727 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1697                   |                       1816                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1621     |       1685     |         1739     |         1670     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |     1621 |    1685 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1739                   |                       1670                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1592     |       1633     |         1558     |         1556     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |     1592 |    1633 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1558                   |                       1556                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1588     |       1671     |         1441     |         1594     |
-     +------------------------------------------------------------------------+
+     +---------------------------------------------------------------------------------------------+
+  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |     1588 |    1671 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1441                   |                       1594                   |
+     +---------------------------------------------------------------------------------------------+
 
-     +------------------------------------------------------------------------+
-  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |           0     |          0     |            0     |            0     |
-     +------------------------------------------------------------------------+
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
+     +---------------------------------------------------------------------------------------------+
+  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |        0 |       0 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                          0                   |                          0                   |
+     +---------------------------------------------------------------------------------------------+
 
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
+. // 3. Convertir de wide a long
+. 
 . rename (enero-diciembre) (homicidios(#)) ,addnumber
 
+. 
 . gen id = _n
 
+. 
 . reshape long homicidios, i(id) j(mes)
 (note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
 
@@ -270,827 +198,1428 @@ xij variables:
 homicidios1 homicidios2 ... homicidios12  ->   homicidios
 -----------------------------------------------------------------------------
 
-. d
-
-Contains data
-  obs:            96                          
- vars:             4                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-id              float   %9.0g                 
-mes             byte    %9.0g                 
-año             int     %8.0g                 Año
-homicidios      double  %8.0g                 
---------------------------------------------------------------------------------
-Sorted by: id  mes
-     Note: Dataset has changed since last saved.
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen mp = M(mes)
-unknown function M()
-r(133);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen mp = M(mes)
-unknown function M()
-r(133);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
+. // 4. Crear una variable de fecha
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen mp =date(mes, "M")
-type mismatch
-r(109);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . _StataKernelHead  using `"C:\Users\User\.stata_kernel_cache\data_head.csv"' , 
-> n_default(200)
-
-     +----------------------------+
-     | id   mes    año   homici~s |
-     |----------------------------|
-  1. |  1     1   2015        679 |
-  2. |  1     2   2015        702 |
-  3. |  1     3   2015        684 |
-  4. |  1     4   2015        734 |
-  5. |  1     5   2015        816 |
-     |----------------------------|
-  6. |  1     6   2015        751 |
-  7. |  1     7   2015        756 |
-  8. |  1     8   2015        865 |
-  9. |  1     9   2015        776 |
- 10. |  1    10   2015        794 |
-     |----------------------------|
- 11. |  1    11   2015        859 |
- 12. |  1    12   2015        793 |
- 13. |  2     1   2016        884 |
- 14. |  2     2   2016        842 |
- 15. |  2     3   2016        901 |
-     |----------------------------|
- 16. |  2     4   2016        853 |
- 17. |  2     5   2016       1001 |
- 18. |  2     6   2016        959 |
- 19. |  2     7   2016       1151 |
- 20. |  2     8   2016       1217 |
-     |----------------------------|
- 21. |  2     9   2016       1198 |
- 22. |  2    10   2016       1139 |
- 23. |  2    11   2016       1188 |
- 24. |  2    12   2016       1145 |
- 25. |  3     1   2017       1296 |
-     |----------------------------|
- 26. |  3     2   2017       1220 |
- 27. |  3     3   2017       1278 |
- 28. |  3     4   2017       1275 |
- 29. |  3     5   2017       1437 |
- 30. |  3     6   2017       1474 |
-     |----------------------------|
- 31. |  3     7   2017       1355 |
- 32. |  3     8   2017       1394 |
- 33. |  3     9   2017       1468 |
- 34. |  3    10   2017       1647 |
- 35. |  3    11   2017       1504 |
-     |----------------------------|
- 36. |  3    12   2017       1543 |
- 37. |  4     1   2018       1511 |
- 38. |  4     2   2018       1410 |
- 39. |  4     3   2018       1626 |
- 40. |  4     4   2018       1632 |
-     |----------------------------|
- 41. |  4     5   2018       1700 |
- 42. |  4     6   2018       1635 |
- 43. |  4     7   2018       1788 |
- 44. |  4     8   2018       1765 |
- 45. |  4     9   2018       1770 |
-     |----------------------------|
- 46. |  4    10   2018       1727 |
- 47. |  4    11   2018       1697 |
- 48. |  4    12   2018       1816 |
- 49. |  5     1   2019       1776 |
- 50. |  5     2   2019       1722 |
-     |----------------------------|
- 51. |  5     3   2019       1658 |
- 52. |  5     4   2019       1614 |
- 53. |  5     5   2019       1722 |
- 54. |  5     6   2019       1813 |
- 55. |  5     7   2019       1803 |
-     |----------------------------|
- 56. |  5     8   2019       1704 |
- 57. |  5     9   2019       1621 |
- 58. |  5    10   2019       1685 |
- 59. |  5    11   2019       1739 |
- 60. |  5    12   2019       1670 |
-     |----------------------------|
- 61. |  6     1   2020       1736 |
- 62. |  6     2   2020       1643 |
- 63. |  6     3   2020       1881 |
- 64. |  6     4   2020       1789 |
- 65. |  6     5   2020       1720 |
-     |----------------------------|
- 66. |  6     6   2020       1668 |
- 67. |  6     7   2020       1748 |
- 68. |  6     8   2020       1693 |
- 69. |  6     9   2020       1592 |
- 70. |  6    10   2020       1633 |
-     |----------------------------|
- 71. |  6    11   2020       1558 |
- 72. |  6    12   2020       1556 |
- 73. |  7     1   2021       1655 |
- 74. |  7     2   2021       1529 |
- 75. |  7     3   2021       1713 |
-     |----------------------------|
- 76. |  7     4   2021       1637 |
- 77. |  7     5   2021       1737 |
- 78. |  7     6   2021       1489 |
- 79. |  7     7   2021       1598 |
- 80. |  7     8   2021       1718 |
-     |----------------------------|
- 81. |  7     9   2021       1588 |
- 82. |  7    10   2021       1671 |
- 83. |  7    11   2021       1441 |
- 84. |  7    12   2021       1594 |
- 85. |  8     1   2022       1468 |
-     |----------------------------|
- 86. |  8     2   2022       1366 |
- 87. |  8     3   2022       1543 |
- 88. |  8     4   2022       1479 |
- 89. |  8     5   2022       1621 |
- 90. |  8     6   2022       1542 |
-     |----------------------------|
- 91. |  8     7   2022          0 |
- 92. |  8     8   2022          0 |
- 93. |  8     9   2022          0 |
- 94. |  8    10   2022          0 |
- 95. |  8    11   2022          0 |
-     |----------------------------|
- 96. |  8    12   2022          0 |
-     +----------------------------+
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tostring mes, gen(date_mes)
-date_mes generated as str2
-
-. gen mp =date(mes, "M")
-type mismatch
-r(109);
-r(109);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . import delimited "data\IDEFC_NM_jun22.csv", clear
-(19 vars, 25,088 obs)
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fueg
-> o"
-(24,832 observations deleted)
-
-. d
-
-Contains data
-  obs:           256                          
- vars:            19                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-año             int     %8.0g                 Año
-clave_ent       byte    %8.0g                 Clave_Ent
-entidad         str31   %31s                  Entidad
-bienjurídicoa~o str52   %52s                  Bien jurídico afectado
-tipodedelito    str78   %78s                  Tipo de delito
-subtipodedelito str78   %78s                  Subtipo de delito
-modalidad       str84   %84s                  Modalidad
-enero           int     %8.0g                 Enero
-febrero         int     %8.0g                 Febrero
-marzo           int     %8.0g                 Marzo
-abril           int     %8.0g                 Abril
-mayo            int     %8.0g                 Mayo
-junio           int     %8.0g                 Junio
-julio           int     %8.0g                 Julio
-agosto          int     %8.0g                 Agosto
-septiembre      int     %8.0g                 Septiembre
-octubre         int     %8.0g                 Octubre
-noviembre       int     %8.0g                 Noviembre
-diciembre       int     %8.0g                 Diciembre
---------------------------------------------------------------------------------
-Sorted by: 
-     Note: Dataset has changed since last saved.
-
-. tab modalidad
-
-                              Modalidad |      Freq.     Percent        Cum.
-----------------------------------------+-----------------------------------
-                      Con arma de fuego |        256      100.00      100.00
-----------------------------------------+-----------------------------------
-                                  Total |        256      100.00
-
-. tab subtipodedelito
-
-                      Subtipo de delito |      Freq.     Percent        Cum.
-----------------------------------------+-----------------------------------
-                       Homicidio doloso |        256      100.00      100.00
-----------------------------------------+-----------------------------------
-                                  Total |        256      100.00
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. collapse (sum) enero-diciembre, by(año)
-
-. d
-
-Contains data
-  obs:             8                          
- vars:            13                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-año             int     %8.0g                 Año
-enero           double  %8.0g                 (sum) enero
-febrero         double  %8.0g                 (sum) febrero
-marzo           double  %8.0g                 (sum) marzo
-abril           double  %8.0g                 (sum) abril
-mayo            double  %8.0g                 (sum) mayo
-junio           double  %8.0g                 (sum) junio
-julio           double  %8.0g                 (sum) julio
-agosto          double  %8.0g                 (sum) agosto
-septiembre      double  %8.0g                 (sum) septiembre
-octubre         double  %8.0g                 (sum) octubre
-noviembre       double  %8.0g                 (sum) noviembre
-diciembre       double  %8.0g                 (sum) diciembre
---------------------------------------------------------------------------------
-Sorted by: año
-     Note: Dataset has changed since last saved.
-
-. list
-
-     +------------------------------------------------------------------------+
-  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |         776     |        794     |          859     |          793     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1198     |       1139     |         1188     |         1145     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1468     |       1647     |         1504     |         1543     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1770     |       1727     |         1697     |         1816     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1621     |       1685     |         1739     |         1670     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1592     |       1633     |         1558     |         1556     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1588     |       1671     |         1441     |         1594     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |           0     |          0     |            0     |            0     |
-     +------------------------------------------------------------------------+
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. rename (enero-diciembre) (homicidios(#)) ,addnumber
-
-. gen id = _n
-
-. reshape long homicidios, i(id) j(mes)
-(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
-
-Data                               wide   ->   long
------------------------------------------------------------------------------
-Number of obs.                        8   ->      96
-Number of variables                  14   ->       4
-j variable (12 values)                    ->   mes
-xij variables:
-homicidios1 homicidios2 ... homicidios12  ->   homicidios
------------------------------------------------------------------------------
-
-. d
-
-Contains data
-  obs:            96                          
- vars:             4                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-id              float   %9.0g                 
-mes             byte    %9.0g                 
-año             int     %8.0g                 Año
-homicidios      double  %8.0g                 
---------------------------------------------------------------------------------
-Sorted by: id  mes
-     Note: Dataset has changed since last saved.
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen dia = 1
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. gen dia = 1
-variable dia already defined
-r(110);
-r(110);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . import delimited "data\IDEFC_NM_jun22.csv", clear
-(19 vars, 25,088 obs)
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fueg
-> o"
-(24,832 observations deleted)
-
-. d
-
-Contains data
-  obs:           256                          
- vars:            19                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-año             int     %8.0g                 Año
-clave_ent       byte    %8.0g                 Clave_Ent
-entidad         str31   %31s                  Entidad
-bienjurídicoa~o str52   %52s                  Bien jurídico afectado
-tipodedelito    str78   %78s                  Tipo de delito
-subtipodedelito str78   %78s                  Subtipo de delito
-modalidad       str84   %84s                  Modalidad
-enero           int     %8.0g                 Enero
-febrero         int     %8.0g                 Febrero
-marzo           int     %8.0g                 Marzo
-abril           int     %8.0g                 Abril
-mayo            int     %8.0g                 Mayo
-junio           int     %8.0g                 Junio
-julio           int     %8.0g                 Julio
-agosto          int     %8.0g                 Agosto
-septiembre      int     %8.0g                 Septiembre
-octubre         int     %8.0g                 Octubre
-noviembre       int     %8.0g                 Noviembre
-diciembre       int     %8.0g                 Diciembre
---------------------------------------------------------------------------------
-Sorted by: 
-     Note: Dataset has changed since last saved.
-
-. tab modalidad
-
-                              Modalidad |      Freq.     Percent        Cum.
-----------------------------------------+-----------------------------------
-                      Con arma de fuego |        256      100.00      100.00
-----------------------------------------+-----------------------------------
-                                  Total |        256      100.00
-
-. tab subtipodedelito
-
-                      Subtipo de delito |      Freq.     Percent        Cum.
-----------------------------------------+-----------------------------------
-                       Homicidio doloso |        256      100.00      100.00
-----------------------------------------+-----------------------------------
-                                  Total |        256      100.00
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. collapse (sum) enero-diciembre, by(año)
-
-. d
-
-Contains data
-  obs:             8                          
- vars:            13                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-año             int     %8.0g                 Año
-enero           double  %8.0g                 (sum) enero
-febrero         double  %8.0g                 (sum) febrero
-marzo           double  %8.0g                 (sum) marzo
-abril           double  %8.0g                 (sum) abril
-mayo            double  %8.0g                 (sum) mayo
-junio           double  %8.0g                 (sum) junio
-julio           double  %8.0g                 (sum) julio
-agosto          double  %8.0g                 (sum) agosto
-septiembre      double  %8.0g                 (sum) septiembre
-octubre         double  %8.0g                 (sum) octubre
-noviembre       double  %8.0g                 (sum) noviembre
-diciembre       double  %8.0g                 (sum) diciembre
---------------------------------------------------------------------------------
-Sorted by: año
-     Note: Dataset has changed since last saved.
-
-. list
-
-     +------------------------------------------------------------------------+
-  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |         776     |        794     |          859     |          793     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1198     |       1139     |         1188     |         1145     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1468     |       1647     |         1504     |         1543     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1770     |       1727     |         1697     |         1816     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1621     |       1685     |         1739     |         1670     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1592     |       1633     |         1558     |         1556     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |        1588     |       1671     |         1441     |         1594     |
-     +------------------------------------------------------------------------+
-
-     +------------------------------------------------------------------------+
-  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto |
-     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |
-     |------------------------------------------------------------------------|
-     |    septie~e     |    octubre     |     noviem~e     |     diciem~e     |
-     |           0     |          0     |            0     |            0     |
-     +------------------------------------------------------------------------+
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. rename (enero-diciembre) (homicidios(#)) ,addnumber
-
-. gen id = _n
-
-. reshape long homicidios, i(id) j(mes)
-(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
-
-Data                               wide   ->   long
------------------------------------------------------------------------------
-Number of obs.                        8   ->      96
-Number of variables                  14   ->       4
-j variable (12 values)                    ->   mes
-xij variables:
-homicidios1 homicidios2 ... homicidios12  ->   homicidios
------------------------------------------------------------------------------
-
-. d
-
-Contains data
-  obs:            96                          
- vars:             4                          
---------------------------------------------------------------------------------
-              storage   display    value
-variable name   type    format     label      variable label
---------------------------------------------------------------------------------
-id              float   %9.0g                 
-mes             byte    %9.0g                 
-año             int     %8.0g                 Año
-homicidios      double  %8.0g                 
---------------------------------------------------------------------------------
-Sorted by: id  mes
-     Note: Dataset has changed since last saved.
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
-
-. 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . include "C:/Users/User/.stata_kernel_cache/include.do"
-
 . gen dia = 1
 
-. gen edate = dmy(dia, mes, año)
-unknown function dmy()
-r(133);
-r(133);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
+. 
+. //drop fecha
+. gen fecha = mdy(mes, dia, año)
 
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
+. format fecha %dD-M-Y
 
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen dia = 1
-variable dia already defined
-r(110);
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
+. format fecha %dM-Y
 
 . 
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. _StataKernelResetRC, num(``__user_rc'')
-
-. macro drop _`__user_rc'
-
-. macro drop ___user_rc
-
-. . gen edate = mdy(mes, dia, año)
-
-. include "C:/Users/User/.stata_kernel_cache/include.do"
-
-. tempname __user_rc
-
-. local `__user_rc' = _rc
+. 
+. 
+. // 5. Graficar una línea en el tiempo
+. 
+. // twoway line y x
+. 
+. twoway line homicidios fecha 
 
 . 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. drop if año == 2022 & mes >= 7
+(6 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha 
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. format fecha %dm-y
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha 
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(2018)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, yline(2018)
+
+. 
+end of do-file
+
+. td(12,1,2018)
+command td is unrecognized
+r(199);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(td(1,1,2010))
+invalid line argument, td(1,1,2010)
+r(198);
+
+end of do-file
+
+r(198);
+
+. td(1,1,2018)
+command td is unrecognized
+r(199);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen fecha_raw = mdy(mes, dia, año)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519)
+
+. 
+end of do-file
+
+. help twoway line
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) 
+
+.         subtitle(de 2020 a 2015 totales nacionales, por mes) ytitle(Total de Homicidios)
+command subtitle is unrecognized
+r(199);
+
+end of do-file
+
+r(199);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) subtitle(de 2020 a 2
+> 015 totales nacionales, por mes) ytitle(Total de Homicidios) xtitle(Mes - Año) note(Datos del SESNSP, desca
+> rgados en junio de 2022)
+option descargados not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) subtitle(de 2020 a 2
+> 015 totales nacionales, por mes) ytitle(Total de Homicidios) xtitle(Mes - Año) note(Datos del SESNSP descar
+> gados en junio de 2022)
+option por not allowed
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) subtitle(de 2020 a 2
+> 015 totales nacionales por mes) ytitle(Total de Homicidios)  xtitle(Mes - Año) note(Datos del SESNSP descar
+> gados en junio de 2022)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen trimestre = qofd(fecha)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. *=====================================================================
+. 
+. // PROYECTO: Quinta introductoria a STATA
+. // PROGRAMA: sesion_5.do
+. // TAREA: De long a wide
+. // CREADO POR: Manuel Toral
+. // FECHA DE CREACIÓN: 2022-07-28
+. // FECHA DE ACTUALIZACIÓN: 2022-07-28
+. 
+. *========================================================================
+. cd "C:\Users\User\Documents\MUCD_stata_intro\Sesion_5"
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_5
+
+. log using "logs_notebooks\log_sesion5.smcl", text replace name(sesion5)
+log file already open
+r(604);
+
+end of do-file
+
+r(604);
+
+. format trimestre %tq
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway lines homicidios trimestre
+lines is not a twoway plot type
+r(198);
+
+end of do-file
+
+r(198);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. collapse (sum) homicidios,  by(trimestre)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. twoway lines homicidios trimestre
+lines is not a twoway plot type
+r(198);
+
+end of do-file
+
+r(198);
+
+. twoway line homicidios trimestre
+
+. di td(21nov2006)
+17126
+
+. di td(1dec2018)
+21519
+
+. td(1dec2018)
+command td is unrecognized
+r(199);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline( td(1dec2018)) title(Homicidios dolosos con arma de fuego) subtitle(de 
+> 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)  xtitle(Mes - Año) note(Datos del SESNS
+> P descargados en junio de 2022)
+variable fecha not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) ///
+> subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios) ///
+> xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+variable fecha not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) ///
+> subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios) ///
+> xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+variable fecha not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) ///
+> subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios) ///
+> xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+variable fecha not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego)
+> subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)
+> xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. #delimit ;
+delimiter now ;
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego)
+>         subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)
+>         xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego)
+>         subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)
+>         xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+> 
+>         
+>         d
+
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. #delimit ;
+delimiter now ;
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego)
+>         subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)
+>         xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022);
+variable fecha not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+. // 2. Transformaciones y limpieza
+. 
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+(24,832 observations deleted)
+
+. 
+. d
+
+Contains data
+  obs:           256                          
+ vars:            19                          
+-------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+-------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. tab modalidad
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                      Con arma de fuego |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                       Homicidio doloso |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. 
+. 
+. collapse (sum) enero-diciembre, by(año)
+
+. d
+
+Contains data
+  obs:             8                          
+ vars:            13                          
+-------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+enero           double  %8.0g                 (sum) enero
+febrero         double  %8.0g                 (sum) febrero
+marzo           double  %8.0g                 (sum) marzo
+abril           double  %8.0g                 (sum) abril
+mayo            double  %8.0g                 (sum) mayo
+junio           double  %8.0g                 (sum) junio
+julio           double  %8.0g                 (sum) julio
+agosto          double  %8.0g                 (sum) agosto
+septiembre      double  %8.0g                 (sum) septiembre
+octubre         double  %8.0g                 (sum) octubre
+noviembre       double  %8.0g                 (sum) noviembre
+diciembre       double  %8.0g                 (sum) diciembre
+-------------------------------------------------------------------------------------------------------------
+Sorted by: año
+     Note: Dataset has changed since last saved.
+
+. list
+
+     +---------------------------------------------------------------------------------------------+
+  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |      776 |     794 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                        859                   |                        793                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |     1198 |    1139 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1188                   |                       1145                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |     1468 |    1647 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1504                   |                       1543                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |     1770 |    1727 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1697                   |                       1816                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |     1621 |    1685 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1739                   |                       1670                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |     1592 |    1633 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1558                   |                       1556                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |     1588 |    1671 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1441                   |                       1594                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |        0 |       0 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                          0                   |                          0                   |
+     +---------------------------------------------------------------------------------------------+
+
+. 
+. // 3. Convertir de wide a long
+. 
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. 
+. gen id = _n
+
+. 
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        8   ->      96
+Number of variables                  14   ->       4
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. 
+. 
+. // 4. Crear una variable de fecha
+. 
+. gen dia = 1
+
+. 
+. //drop fecha
+. gen fecha = mdy(mes, dia, año)
+
+. 
+. 
+. //format fecha %dD-M-Y
+. //format fecha %dM-Y
+. 
+. 
+. 
+. // 5. Graficar una línea en el tiempo
+. 
+. // twoway line y x
+. 
+. twoway line homicidios fecha 
+
+. 
+. // 6. Quitar las observaciones con 0
+. 
+. //keep if año != 2022 & mes >= 7
+. drop if año == 2022 & mes >= 7
+(6 observations deleted)
+
+. 
+. 
+. //keep if homicidios > 0  
+. 
+. format fecha %dm-y
+
+. twoway line homicidios fecha 
+
+. 
+. gen fecha_raw = mdy(mes, dia, año)
+
+. 
+. di td(1dec2018)
+21519
+
+. 
+. #delimit ;
+delimiter now ;
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego)
+>         subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios)
+>         xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022);
+
+.                 d
+
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. twoway line homicidios fecha, xline(21519) title(Homicidios dolosos con arma de fuego) ///
+> subtitle(de 2020 a 2015 totales nacionales por mes) ytitle(Total de Homicidios) ///
+> xtitle(Mes - Año) note(Datos del SESNSP descargados en junio de 2022)
+
+. 
+end of do-file
+
+. display td(1dec2018)
+21519
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+end of do-file
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                                 Aborto |        256        1.02        1.02
+                     Abuso de confianza |        256        1.02        2.04
+                           Abuso sexual |        256        1.02        3.06
+                           Acoso sexual |        256        1.02        4.08
+                 Allanamiento de morada |        256        1.02        5.10
+                               Amenazas |        256        1.02        6.12
+               Contra el medio ambiente |        256        1.02        7.14
+                  Corrupción de menores |        256        1.02        8.16
+                    Daño a la propiedad |        256        1.02        9.18
+Delitos cometidos por servidores públ.. |        256        1.02       10.20
+                                Despojo |        256        1.02       11.22
+                            Electorales |        256        1.02       12.24
+                      Evasión de presos |        256        1.02       13.27
+                              Extorsión |        256        1.02       14.29
+                               Falsedad |        256        1.02       15.31
+                          Falsificación |        256        1.02       16.33
+                            Feminicidio |      1,024        4.08       20.41
+                                 Fraude |        256        1.02       21.43
+                      Homicidio culposo |      1,280        5.10       26.53
+                       Homicidio doloso |      1,024        4.08       30.61
+                   Hostigamiento sexual |        256        1.02       31.63
+                                Incesto |        256        1.02       32.65
+Incumplimiento de obligaciones de asi.. |        256        1.02       33.67
+                      Lesiones culposas |      1,280        5.10       38.78
+                       Lesiones dolosas |      1,024        4.08       42.86
+                           Narcomenudeo |        256        1.02       43.88
+     Otros delitos contra el patrimonio |        256        1.02       44.90
+        Otros delitos contra la familia |        256        1.02       45.92
+       Otros delitos contra la sociedad |        256        1.02       46.94
+          Otros delitos del Fuero Común |        256        1.02       47.96
+Otros delitos que atentan contra la l.. |        256        1.02       48.98
+Otros delitos que atentan contra la l.. |        256        1.02       50.00
+Otros delitos que atentan contra la v.. |        256        1.02       51.02
+                            Otros robos |        512        2.04       53.06
+                                  Rapto |        256        1.02       54.08
+                 Robo a casa habitación |        512        2.04       56.12
+            Robo a institución bancaria |        512        2.04       58.16
+                         Robo a negocio |        512        2.04       60.20
+Robo a transeúnte en espacio abierto .. |        512        2.04       62.24
+       Robo a transeúnte en vía pública |        512        2.04       64.29
+                   Robo a transportista |        512        2.04       66.33
+                     Robo de autopartes |        512        2.04       68.37
+                         Robo de ganado |        512        2.04       70.41
+                     Robo de maquinaria |      1,536        6.12       76.53
+             Robo de vehículo automotor |      1,536        6.12       82.65
+          Robo en transporte individual |        512        2.04       84.69
+   Robo en transporte público colectivo |        512        2.04       86.73
+  Robo en transporte público individual |        512        2.04       88.78
+                              Secuestro |      1,280        5.10       93.88
+                      Trata de personas |        256        1.02       94.90
+                     Tráfico de menores |        256        1.02       95.92
+                   Violación equiparada |        256        1.02       96.94
+                       Violación simple |        256        1.02       97.96
+Violencia de género en todas sus moda.. |        256        1.02       98.98
+                     Violencia familiar |        256        1.02      100.00
+----------------------------------------+-----------------------------------
+                                  Total |     25,088      100.00
+
+. tab modalidad if subtipodedelito == "Robo a casa habitación"
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                          Con violencia |        256       50.00       50.00
+                          Sin violencia |        256       50.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        512      100.00
+
+. cls
+
+. gen code = mod(_n-1,98) + 1, before(enero)
+
+. egen code_comp = group(año)
+
+. drop code_comp
+
+. egen code_comp = group(modalidad)
+
+. keep code code_comp
+
+. help mod
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen code = mod(_n-1,98) + 1, before(enero)
+
+. 
+. drop bienjurídicoafectado tipodedelito subtipodedelito modalidad
+
+. 
+. gen mes=., after(año)
+(25,088 missing values generated)
+
+. 
+. gen c=., after(code)
+(25,088 missing values generated)
+
+. 
+end of do-file
+
+. expand 12
+(275,968 observations created)
+
+. 
+. 
+. 
+. sort año clave_ent cvemunicipio code 
+variable cvemunicipio not found
+r(111);
+
+. 
+. 
+. 
+. replace mes = mod(_n-1,12) + 1
+(301,056 real changes made)
+
+. destring enero-diciembre, replace ignore(",")force
+enero already numeric; no replace
+febrero already numeric; no replace
+marzo already numeric; no replace
+abril already numeric; no replace
+mayo already numeric; no replace
+junio already numeric; no replace
+julio already numeric; no replace
+agosto already numeric; no replace
+septiembre already numeric; no replace
+octubre already numeric; no replace
+noviembre already numeric; no replace
+diciembre already numeric; no replace
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+end of do-file
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                                 Aborto |        256        1.02        1.02
+                     Abuso de confianza |        256        1.02        2.04
+                           Abuso sexual |        256        1.02        3.06
+                           Acoso sexual |        256        1.02        4.08
+                 Allanamiento de morada |        256        1.02        5.10
+                               Amenazas |        256        1.02        6.12
+               Contra el medio ambiente |        256        1.02        7.14
+                  Corrupción de menores |        256        1.02        8.16
+                    Daño a la propiedad |        256        1.02        9.18
+Delitos cometidos por servidores públ.. |        256        1.02       10.20
+                                Despojo |        256        1.02       11.22
+                            Electorales |        256        1.02       12.24
+                      Evasión de presos |        256        1.02       13.27
+                              Extorsión |        256        1.02       14.29
+                               Falsedad |        256        1.02       15.31
+                          Falsificación |        256        1.02       16.33
+                            Feminicidio |      1,024        4.08       20.41
+                                 Fraude |        256        1.02       21.43
+                      Homicidio culposo |      1,280        5.10       26.53
+                       Homicidio doloso |      1,024        4.08       30.61
+                   Hostigamiento sexual |        256        1.02       31.63
+                                Incesto |        256        1.02       32.65
+Incumplimiento de obligaciones de asi.. |        256        1.02       33.67
+                      Lesiones culposas |      1,280        5.10       38.78
+                       Lesiones dolosas |      1,024        4.08       42.86
+                           Narcomenudeo |        256        1.02       43.88
+     Otros delitos contra el patrimonio |        256        1.02       44.90
+        Otros delitos contra la familia |        256        1.02       45.92
+       Otros delitos contra la sociedad |        256        1.02       46.94
+          Otros delitos del Fuero Común |        256        1.02       47.96
+Otros delitos que atentan contra la l.. |        256        1.02       48.98
+Otros delitos que atentan contra la l.. |        256        1.02       50.00
+Otros delitos que atentan contra la v.. |        256        1.02       51.02
+                            Otros robos |        512        2.04       53.06
+                                  Rapto |        256        1.02       54.08
+                 Robo a casa habitación |        512        2.04       56.12
+            Robo a institución bancaria |        512        2.04       58.16
+                         Robo a negocio |        512        2.04       60.20
+Robo a transeúnte en espacio abierto .. |        512        2.04       62.24
+       Robo a transeúnte en vía pública |        512        2.04       64.29
+                   Robo a transportista |        512        2.04       66.33
+                     Robo de autopartes |        512        2.04       68.37
+                         Robo de ganado |        512        2.04       70.41
+                     Robo de maquinaria |      1,536        6.12       76.53
+             Robo de vehículo automotor |      1,536        6.12       82.65
+          Robo en transporte individual |        512        2.04       84.69
+   Robo en transporte público colectivo |        512        2.04       86.73
+  Robo en transporte público individual |        512        2.04       88.78
+                              Secuestro |      1,280        5.10       93.88
+                      Trata de personas |        256        1.02       94.90
+                     Tráfico de menores |        256        1.02       95.92
+                   Violación equiparada |        256        1.02       96.94
+                       Violación simple |        256        1.02       97.96
+Violencia de género en todas sus moda.. |        256        1.02       98.98
+                     Violencia familiar |        256        1.02      100.00
+----------------------------------------+-----------------------------------
+                                  Total |     25,088      100.00
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. cd "C:\Users\User\Documents\MUCD_stata_intro\Sesion_5"
+C:\Users\User\Documents\MUCD_stata_intro\Sesion_5
+
+. //log using "logs_notebooks\log_sesion5.smcl", text replace name(sesion5)
+. 
+. // 1. Datos
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+. // 2. Transformaciones y limpieza
+. 
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. //keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+. 
+. keep if subtipodedelito == "Robo a casa habitacion" & modalidad == "Con violencia"
+(25,088 observations deleted)
+
+. 
+. d
+
+Contains data
+  obs:             0                          
+ vars:            19                          
+-------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+-------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. tab modalidad
+no observations
+
+. tab subtipodedelito
+no observations
+
+. 
+. 
+. collapse (sum) enero-diciembre, by(año)
+no observations
+r(2000);
+
+end of do-file
+
+r(2000);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. // 1. Datos
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+. // 2. Transformaciones y limpieza
+. 
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. //keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+. 
+. keep if subtipodedelito == "Robo a casa habitacion" & modalidad == "Con violencia"
+(25,088 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. collapse (sum) enero-diciembre, by(año)
+no observations
+r(2000);
+
+end of do-file
+
+r(2000);
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen id = _n
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        0   ->       0
+Number of variables                  20   ->      10
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen dia = 1
+
+. 
+. 
+. gen edate = mdy(mes, dia, año)
+
+. 
+. format edate %dM-Y
+
+. 
+. twoway line homicidios edate
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. keep if subtipodedelito == "Robo a casa habitacion" & modalidad == "Con arma de fuego"
+(25,088 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+end of do-file
+
+. tab modalidad if subtipodedelito == "Robo a casa habitacion"
+no observations
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                                 Aborto |        256        1.02        1.02
+                     Abuso de confianza |        256        1.02        2.04
+                           Abuso sexual |        256        1.02        3.06
+                           Acoso sexual |        256        1.02        4.08
+                 Allanamiento de morada |        256        1.02        5.10
+                               Amenazas |        256        1.02        6.12
+               Contra el medio ambiente |        256        1.02        7.14
+                  Corrupción de menores |        256        1.02        8.16
+                    Daño a la propiedad |        256        1.02        9.18
+Delitos cometidos por servidores públ.. |        256        1.02       10.20
+                                Despojo |        256        1.02       11.22
+                            Electorales |        256        1.02       12.24
+                      Evasión de presos |        256        1.02       13.27
+                              Extorsión |        256        1.02       14.29
+                               Falsedad |        256        1.02       15.31
+                          Falsificación |        256        1.02       16.33
+                            Feminicidio |      1,024        4.08       20.41
+                                 Fraude |        256        1.02       21.43
+                      Homicidio culposo |      1,280        5.10       26.53
+                       Homicidio doloso |      1,024        4.08       30.61
+                   Hostigamiento sexual |        256        1.02       31.63
+                                Incesto |        256        1.02       32.65
+Incumplimiento de obligaciones de asi.. |        256        1.02       33.67
+                      Lesiones culposas |      1,280        5.10       38.78
+                       Lesiones dolosas |      1,024        4.08       42.86
+                           Narcomenudeo |        256        1.02       43.88
+     Otros delitos contra el patrimonio |        256        1.02       44.90
+        Otros delitos contra la familia |        256        1.02       45.92
+       Otros delitos contra la sociedad |        256        1.02       46.94
+          Otros delitos del Fuero Común |        256        1.02       47.96
+Otros delitos que atentan contra la l.. |        256        1.02       48.98
+Otros delitos que atentan contra la l.. |        256        1.02       50.00
+Otros delitos que atentan contra la v.. |        256        1.02       51.02
+                            Otros robos |        512        2.04       53.06
+                                  Rapto |        256        1.02       54.08
+                 Robo a casa habitación |        512        2.04       56.12
+            Robo a institución bancaria |        512        2.04       58.16
+                         Robo a negocio |        512        2.04       60.20
+Robo a transeúnte en espacio abierto .. |        512        2.04       62.24
+       Robo a transeúnte en vía pública |        512        2.04       64.29
+                   Robo a transportista |        512        2.04       66.33
+                     Robo de autopartes |        512        2.04       68.37
+                         Robo de ganado |        512        2.04       70.41
+                     Robo de maquinaria |      1,536        6.12       76.53
+             Robo de vehículo automotor |      1,536        6.12       82.65
+          Robo en transporte individual |        512        2.04       84.69
+   Robo en transporte público colectivo |        512        2.04       86.73
+  Robo en transporte público individual |        512        2.04       88.78
+                              Secuestro |      1,280        5.10       93.88
+                      Trata de personas |        256        1.02       94.90
+                     Tráfico de menores |        256        1.02       95.92
+                   Violación equiparada |        256        1.02       96.94
+                       Violación simple |        256        1.02       97.96
+Violencia de género en todas sus moda.. |        256        1.02       98.98
+                     Violencia familiar |        256        1.02      100.00
+----------------------------------------+-----------------------------------
+                                  Total |     25,088      100.00
+
+. tab modalidad if subtipodedelito == "Robo a casa habitación"
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                          Con violencia |        256       50.00       50.00
+                          Sin violencia |        256       50.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        512      100.00
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+. // 2. Transformaciones y limpieza
+. 
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. //keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+. 
+. keep if subtipodedelito == "Robo a casa habitación" & modalidad == "Con violencia"
+(24,832 observations deleted)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. collapse (sum) enero-diciembre, by(año)
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. 
+. gen id = _n
+
+. 
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        8   ->      96
+Number of variables                  14   ->       4
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. gen dia = 1
+
+. 
+. 
+. gen edate = mdy(mes, dia, año)
+
+. 
+. format edate %dM-Y
+
+. 
+. twoway line homicidios edate
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. drop if homicidios == 0
+(6 observations deleted)
+
+. 
+. // 6. Graficar de nueva cuenta
+. 
+. 
+. twoway line homicidios edate
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. import delimited "data\IDEFC_NM_jun22.csv", clear
+(19 vars, 25,088 obs)
+
+. 
+. list in 1
+
+     +----------------------------------------------------------------------------------------------------+
+  1. |  año | clave_~t |        entidad |             bienjurídicoafectado | tipoded~o |  subtipodedelito |
+     | 2015 |        1 | Aguascalientes | La vida y la Integridad corporal | Homicidio | Homicidio doloso |
+     |---------------------------------------------------------------------+------------------------------|
+     |         modalidad | enero | febrero | marzo | abril | mayo | junio  | julio  | agosto  | septie~e  |
+     | Con arma de fuego |     3 |       0 |     2 |     1 |    1 |     1  |     2  |      1  |        2  |
+     |----------------------------------------------------------------------------------------------------|
+     |            octubre             |            noviem~e             |            diciem~e             |
+     |                  2             |                   2             |                   1             |
+     +----------------------------------------------------------------------------------------------------+
+
+. 
+. // 2. Transformaciones y limpieza
+. 
+. 
+. // 2.1 Conserva sólo el subtipo de delito y modalidad que definen "Homicidio doloso con arema de fuego"
+. 
+. //keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+. keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+(24,832 observations deleted)
+
+. d
+
+Contains data
+  obs:           256                          
+ vars:            19                          
+-------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+clave_ent       byte    %8.0g                 Clave_Ent
+entidad         str31   %31s                  Entidad
+bienjurídicoa~o str52   %52s                  Bien jurídico afectado
+tipodedelito    str78   %78s                  Tipo de delito
+subtipodedelito str78   %78s                  Subtipo de delito
+modalidad       str84   %84s                  Modalidad
+enero           int     %8.0g                 Enero
+febrero         int     %8.0g                 Febrero
+marzo           int     %8.0g                 Marzo
+abril           int     %8.0g                 Abril
+mayo            int     %8.0g                 Mayo
+junio           int     %8.0g                 Junio
+julio           int     %8.0g                 Julio
+agosto          int     %8.0g                 Agosto
+septiembre      int     %8.0g                 Septiembre
+octubre         int     %8.0g                 Octubre
+noviembre       int     %8.0g                 Noviembre
+diciembre       int     %8.0g                 Diciembre
+-------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. tab modalidad
+
+                              Modalidad |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                      Con arma de fuego |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. tab subtipodedelito
+
+                      Subtipo de delito |      Freq.     Percent        Cum.
+----------------------------------------+-----------------------------------
+                       Homicidio doloso |        256      100.00      100.00
+----------------------------------------+-----------------------------------
+                                  Total |        256      100.00
+
+. 
+. 
+. collapse (sum) enero-diciembre, by(año)
+
+. d
+
+Contains data
+  obs:             8                          
+ vars:            13                          
+-------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------
+año             int     %8.0g                 Año
+enero           double  %8.0g                 (sum) enero
+febrero         double  %8.0g                 (sum) febrero
+marzo           double  %8.0g                 (sum) marzo
+abril           double  %8.0g                 (sum) abril
+mayo            double  %8.0g                 (sum) mayo
+junio           double  %8.0g                 (sum) junio
+julio           double  %8.0g                 (sum) julio
+agosto          double  %8.0g                 (sum) agosto
+septiembre      double  %8.0g                 (sum) septiembre
+octubre         double  %8.0g                 (sum) octubre
+noviembre       double  %8.0g                 (sum) noviembre
+diciembre       double  %8.0g                 (sum) diciembre
+-------------------------------------------------------------------------------------------------------------
+Sorted by: año
+     Note: Dataset has changed since last saved.
+
+. list
+
+     +---------------------------------------------------------------------------------------------+
+  1. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2015 |   679 |     702 |   684 |   734 |  816 |   751 |   756 |    865 |      776 |     794 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                        859                   |                        793                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  2. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2016 |   884 |     842 |   901 |   853 | 1001 |   959 |  1151 |   1217 |     1198 |    1139 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1188                   |                       1145                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  3. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2017 |  1296 |    1220 |  1278 |  1275 | 1437 |  1474 |  1355 |   1394 |     1468 |    1647 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1504                   |                       1543                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  4. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2018 |  1511 |    1410 |  1626 |  1632 | 1700 |  1635 |  1788 |   1765 |     1770 |    1727 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1697                   |                       1816                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  5. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2019 |  1776 |    1722 |  1658 |  1614 | 1722 |  1813 |  1803 |   1704 |     1621 |    1685 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1739                   |                       1670                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  6. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2020 |  1736 |    1643 |  1881 |  1789 | 1720 |  1668 |  1748 |   1693 |     1592 |    1633 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1558                   |                       1556                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  7. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2021 |  1655 |    1529 |  1713 |  1637 | 1737 |  1489 |  1598 |   1718 |     1588 |    1671 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                       1441                   |                       1594                   |
+     +---------------------------------------------------------------------------------------------+
+
+     +---------------------------------------------------------------------------------------------+
+  8. |  año | enero | febrero | marzo | abril | mayo | junio | julio | agosto | septie~e | octubre |
+     | 2022 |  1468 |    1366 |  1543 |  1479 | 1621 |  1542 |     0 |      0 |        0 |       0 |
+     |---------------------------------------------------------------------------------------------|
+     |                   noviem~e                   |                   diciem~e                   |
+     |                          0                   |                          0                   |
+     +---------------------------------------------------------------------------------------------+
+
+. 
+. // 3. Convertir de wide a long
+. 
+. rename (enero-diciembre) (homicidios(#)) ,addnumber
+
+. 
+. gen id = _n
+
+. 
+. reshape long homicidios, i(id) j(mes)
+(note: j = 1 2 3 4 5 6 7 8 9 10 11 12)
+
+Data                               wide   ->   long
+-----------------------------------------------------------------------------
+Number of obs.                        8   ->      96
+Number of variables                  14   ->       4
+j variable (12 values)                    ->   mes
+xij variables:
+homicidios1 homicidios2 ... homicidios12  ->   homicidios
+-----------------------------------------------------------------------------
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. gen dia = 1
+
+. 
+. 
+. gen edate = mdy(mes, dia, año)
+
+. 
+. format edate %dM-Y
+
+. 
+. twoway line homicidios edate
+
+. 
+. 
+. // 5. Filtrar los datos necesarios
+. 
+. drop if homicidios == 0
+(6 observations deleted)
+
+. 
+. // 6. Graficar de nueva cuenta
+. 
+. 
+. twoway line homicidios edate
+
+. 
+end of do-file
+
+. do "C:\Users\User\AppData\Local\Temp\STD4ac8_000000.tmp"
+
+. 
+. //keep if subtipodedelito == "Homicidio doloso" & modalidad == "Con arma de fuego"
+. keep if subtipodedelito == "Robo a casa habitación" & modalidad == "Con violencia"
+subtipodedelito not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. exit, clear
